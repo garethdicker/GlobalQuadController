@@ -8,7 +8,7 @@ Rbumper = 0.11;
 Cbumper = propLocation(:,1);
 Abumper = deg2rad(11);
 
-disprate = 30; %Hz
+disprate = 50; %Hz
 recordrate = disprate/10; %Hz
 disprate_idx = round((size(t,1)/(t(end)-t(1)))/disprate);
 % disprate_idx = 1;

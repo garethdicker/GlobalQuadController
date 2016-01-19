@@ -31,7 +31,7 @@ global m Ixx Iyy Izz u2RpmMat Kt Dt;
 
 %% 1. Compute thrust
 
-% compute body z-axis direction
+% compute body z-axis direction, -1 because quad z-axis points down
 bodyFrameZAxis = quatrotate(Pose.attQuat', [0 0 -1]);
 
 % if the desired acceleration and body frame z-axis point at all in the
@@ -94,11 +94,7 @@ Control.twist.angVel(3) = 0;
     
 % define gains
 propPQ  = 20.0; % proportional for p and q
-% derivPQ = 3.0;  % derivative for p and q
-propR   = 0.0;  % proportional only for r
-
-% define previous desired control body rates
-% previousControlAngVel = Hist.controls(end).twist.angVel;
+propR   = 3.0;  % proportional only for r
 
 % compute desired boy frame accelerations with P control on the body rates
 vP = propPQ*(Control.twist.angVel(1) - Twist.angVel(1));
