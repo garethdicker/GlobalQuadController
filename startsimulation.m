@@ -15,14 +15,13 @@ clc;
 %% Definition of Constants and Variables
 
 % Initialize global parameters.
-global g m I Jr propLocation Kt Dt Ixx Iyy Izz u2RpmMat;
 initparams;
 
 % Define starting pose and twist parameters.
 IC.posn     = [0; 0; 1]; % world frame position (meters) 
-IC.linVel   = [0; 3; 0]; % world frame velocity (m / s)
-IC.angVel   = [0; 27; 1]; % body rates (radians / s)
-IC.attEuler = [0.3; 0; 0]; % [roll; pitch; yaw] (radians)
+IC.linVel   = [0; 0; 0]; % world frame velocity (m / s)
+IC.angVel   = [0; 0; 0]; % body rates (radians / s)
+IC.attEuler = [pi; 0; 0]; % [roll; pitch; yaw] (radians)
 
 % Initialize state and its derivative.
 [state, stateDeriv] = initstate(IC);
@@ -78,19 +77,21 @@ end
 plotbodyrates(Hist.t, Hist.controls, Hist.twists);
 
 %% TODO: check actual acceleration values
-% plotaccelerations(Hist.t, Hist.controls, Hist.stateDerivs(1:3,:), Hist.states(10:13,:));
+plotaccelerations(Hist.t, Hist.controls, Hist.stateDerivs(1:3,:), Hist.states(10:13,:));
 
 %% 
-% plotposition(Hist.t, Hist.poses);
+plotposition(Hist.t, Hist.poses);
 
 %% 
-% plotvelocity(Hist.t, Hist.twists);
+plotangles(Hist.t, Hist.poses);
+%%
+plotvelocity(Hist.t, Hist.twists);
 
 %%
 % plotcontrolforcetorque(Hist.t, Hist.controls);
 
 %%
-% plotcontrolrpm(Hist.t, Hist.controls);
+plotcontrolrpm(Hist.t, Hist.controls);
 
 %%
 % ploterrorquaternion(Hist.t, Hist.controls);

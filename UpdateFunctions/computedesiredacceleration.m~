@@ -3,8 +3,6 @@ function [Control] = computedesiredacceleration(Control, Pose, Twist)
     % Computes the desired acceleration vector. 
     global g, pXY, pZ, dXY, dZ;
     
-    
-    Control.acc = pXY(Control.pose.posn(1)-
     %1) Initialize attitude control.
     
     % check if in free fall
