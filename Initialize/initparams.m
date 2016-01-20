@@ -32,14 +32,9 @@ function []= initparams()
                      Kt*propLocation(1,1)  Kt*propLocation(1,2)  Kt*propLocation(1,3)  Kt*propLocation(1,4);
                     -Dt                    Dt                   -Dt                    Dt                 ]);
     
-    % position and velocity proportional gains
-    pXY = 0;
-    pZ = 0;
-    dXY = 0;
-    dZ = 0;
-    
-    pPos = diag([pXY; pXY; pZ]);
-    dPos = diag([dXY; dXY; dZ]);
+    % position and velocity proportional gain matricies
+    pPos = zeros(3,3);
+    dPos = zeros(3,3);
 
 end
 

@@ -13,20 +13,21 @@ close all;
 clc;
 
 %% Definition of Constants and Variables
+global pPos dPos;
 
 % Initialize global parameters.
 initparams;
 
 % Define starting pose and twist parameters.
-IC.posn     = [0; 0; 1]; % world frame position (meters) 
+IC.posn     = [0; 0; 2]; % world frame position (meters) 
 IC.linVel   = [0; 0; 0]; % world frame velocity (m / s)
 IC.angVel   = [0; 0; 0]; % body rates (radians / s)
-IC.attEuler = [pi; 0; 0]; % [roll; pitch; yaw] (radians)
+IC.attEuler = [pi/2; 0; 0]; % [roll; pitch; yaw] (radians)
 
 % Initialize state and its derivative.
 [state, stateDeriv] = initstate(IC);
 
-endTime = 1;  % seconds
+endTime = 2;  % seconds
 dt = 1 / 200; % time step (Hz)
 
 % Define pose and twist structs.
@@ -43,7 +44,7 @@ Hist = inithistory(state, stateDeriv, Twist, Pose, Control);
 
 %% Simulation
 for i = 0 : dt : endTime - dt
-    i
+    
     % Set control input for recovery controller.
     % TODO: make world frame not body
     Control.acc = [0; 0; 9.81];
@@ -86,6 +87,7 @@ plotposition(Hist.t, Hist.poses);
 
 %% 
 plotangles(Hist.t, Hist.poses);
+
 %%
 plotvelocity(Hist.t, Hist.twists);
 
