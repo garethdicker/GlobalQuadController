@@ -48,7 +48,9 @@ for i = 0 : dt : endTime - dt
     % TODO: make world frame not body
     Control.acc = [0; 0; 9.81];
     
-%     [Control] = computedesiredacceleration(Control, Pose, Twist);
+    [recoveryStage] = checkrecoverystage(Pose, Twist);
+    
+    [Control] = computedesiredacceleration(Control, Pose, Twist, recoveryStage);
     
     % Compute control outputs
     [Control] = controllerrecovery(dt, Pose, Twist, Control, Hist);

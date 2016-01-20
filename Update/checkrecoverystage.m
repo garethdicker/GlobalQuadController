@@ -1,4 +1,4 @@
-function [recoveryStage] = checkRecoveryStage(Pose, Twist)
+function [recoveryStage] = checkrecoverystage(Pose, Twist)
     % Checks the stage of the recovery controller.
 
     % TODO: include acceleration check to begin

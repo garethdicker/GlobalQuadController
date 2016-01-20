@@ -23,17 +23,17 @@ function [Control] = computedesiredacceleration(Control, Pose, Twist)
     % GainPosition = [0; 0; 0];
     % GainVelocity = [0; 0; dZ];
     % once Twist.linVel(3) < 0.3 m/s
-    
+        case 3
     % 3) Add vertical position control and horizontal velocity control
     % GainPosition = [0; 0; pZ];
     % GainVelocity = [dXY; dXY; dZ];
     
     % once Twist.linVel(1:2) < 0.2 m/s
-   
+        case 4
     % 4) Add horizontal position control.
     % GainPosition = [pXY; pXY; pZ];
     % GainVelocity = [dXY; dXY; dZ];
-    
+        otherwise 
  
-
+    end
 end
