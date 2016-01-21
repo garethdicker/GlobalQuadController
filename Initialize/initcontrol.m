@@ -1,5 +1,6 @@
-function [Control] = definecontrol(Pose, Twist)
-
+function [Control] = initcontrol()
+    
+    [Pose, Twist] = initposetwist;
     % Desired pose and twist 
     Control.pose = Pose;
     Control.twist = Twist;

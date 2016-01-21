@@ -5,9 +5,9 @@ function [recoveryStage] = checkrecoverystage(Pose, Twist)
     
     % check Euler angles
     if Pose.attEuler(1) < 0.35 && Pose.attEuler(2) < 0.35
-        recoveryStage = 2
+        recoveryStage = 2;
     else
-        recoveryStage = 1
+        recoveryStage = 1;
     end
     
 %     % check vertical velocity

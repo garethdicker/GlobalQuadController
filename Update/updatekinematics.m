@@ -14,6 +14,9 @@ function [Pose, Twist] = updatekinematics(state, stateDeriv)
     % Linear velocity in body frame
     Twist.linVel = state(1:3);
     
+    % Linear acceleration in the world frame
+    Twist.worldAcc = quat2rotmat(Pose.attQuat)'*stateDeriv(1:3);
+    
     % Linear velocity in the WORLD frame
     Twist.posnDeriv = stateDeriv(7:9);
 

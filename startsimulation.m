@@ -13,7 +13,6 @@ close all;
 clc;
 
 %% Definition of Constants and Variables
-global pPos dPos;
 
 % Initialize global parameters.
 initparams;
@@ -22,7 +21,7 @@ initparams;
 IC.posn     = [0; 0; 2]; % world frame position (meters) 
 IC.linVel   = [0; 0; 0]; % world frame velocity (m / s)
 IC.angVel   = [0; 0; 0]; % body rates (radians / s)
-IC.attEuler = [pi/2; 0; 0]; % [roll; pitch; yaw] (radians)
+IC.attEuler = [pi/2-0.1; 0; 0]; % [roll; pitch; yaw] (radians)
 
 % Initialize state and its derivative.
 [state, stateDeriv] = initstate(IC);
@@ -30,24 +29,21 @@ IC.attEuler = [pi/2; 0; 0]; % [roll; pitch; yaw] (radians)
 endTime = 2;  % seconds
 dt = 1 / 200; % time step (Hz)
 
-% Define pose and twist structs.
-[Pose, Twist] = defineposetwist;
-
 % Define control types using pose and twist struct types.
-Control = definecontrol(Pose, Twist);
+Control = initcontrol;
 
 % Update pose and twist structs from state and its derivative.
 [Pose, Twist] = updatekinematics(state, stateDeriv);
 
 % Initialize history for plotting and visualizing simulation.
-Hist = inithistory(state, stateDeriv, Twist, Pose, Control);
+Hist = inithist(state, stateDeriv, Pose, Twist, Control);
 
 %% Simulation
 for i = 0 : dt : endTime - dt
     
     % Set control input for recovery controller.
     % TODO: make world frame not body
-    Control.acc = [0; 0; 9.81];
+    Control.acc = [0; 1; 9.81];
     
     [recoveryStage] = checkrecoverystage(Pose, Twist);
     
@@ -68,39 +64,37 @@ for i = 0 : dt : endTime - dt
     [Pose, Twist] = updatekinematics(state, stateDeriv);
 
     % Update history.
-    Hist = updatehistory(Hist, t, state, stateDeriv);
+    Hist = updatehist(Hist, t, state, stateDeriv, Pose, Twist, Control);
 
-    % TODO: put back into updatehistory function where they don't work
-    Hist.poses = [Hist.poses; Pose];
-    Hist.twists = [Hist.twists; Twist];
-    Hist.controls = [Hist.controls; Control];
+
 
 end
 %% Display Plots
-plotbodyrates(Hist.t, Hist.controls, Hist.twists);
+plotbodyrates(Hist.times, Hist.controls, Hist.twists);
 
-%% TODO: check actual acceleration values
-plotaccelerations(Hist.t, Hist.controls, Hist.stateDerivs(1:3,:), Hist.states(10:13,:));
-
-%% 
-plotposition(Hist.t, Hist.poses);
+%% TODO: change
+plotaccelerations(Hist.times, Hist.controls, Hist.stateDerivs(1:3,:), Hist.states(10:13,:));
 
 %% 
-plotangles(Hist.t, Hist.poses);
+plotposition(Hist.times, Hist.poses);
+
+%% 
+plotangles(Hist.times, Hist.poses);
 
 %%
-plotvelocity(Hist.t, Hist.twists);
+% stateDeriv
+plotvelocity(Hist.times, Hist.twists);
 
 %%
-% plotcontrolforcetorque(Hist.t, Hist.controls);
+plotcontrolforcetorque(Hist.times, Hist.controls);
 
 %%
-plotcontrolrpm(Hist.t, Hist.controls);
+plotcontrolrpm(Hist.times, Hist.controls);
 
 %%
-% ploterrorquaternion(Hist.t, Hist.controls);
+ploterrorquaternion(Hist.times, Hist.controls);
 
 %% Visualize simulation.
-simvisualization(Hist.t, Hist.states, 'na');
+% simvisualization(Hist.times, Hist.states, 'na');
 
 

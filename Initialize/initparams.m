@@ -1,6 +1,8 @@
 function []= initparams()
 
-    global g m I Jr propLocation Kt Dt Ixx Iyy Izz u2RpmMat pPos dPos pXY dXY pZ dZ;
+    global g m I Ixx Iyy Izz
+    
+    global Jr Dt Kt PROP_POSNS u2RpmMat pPos dPos
 
     g = 9.81;   % gravity
     m = 0.933;  % mass (kg) 
@@ -22,14 +24,14 @@ function []= initparams()
     load('locations2');
     
     %prop locations relative to CoM
-    propLocation = [p1, p2, p3, p4] - repmat(CoM,1,4);
+    PROP_POSNS = [p1, p2, p3, p4] - repmat(CoM,1,4);
 
     Kt = 7.015e-8; % Thrust coefficient
     Dt = 9.61e-10; % Drag coefficient
     
     u2RpmMat = inv([-Kt                   -Kt                   -Kt                   -Kt;              
-                    -Kt*propLocation(2,1) -Kt*propLocation(2,2) -Kt*propLocation(2,3) -Kt*propLocation(2,4);
-                     Kt*propLocation(1,1)  Kt*propLocation(1,2)  Kt*propLocation(1,3)  Kt*propLocation(1,4);
+                    -Kt*PROP_POSNS(2,1) -Kt*PROP_POSNS(2,2) -Kt*PROP_POSNS(2,3) -Kt*PROP_POSNS(2,4);
+                     Kt*PROP_POSNS(1,1)  Kt*PROP_POSNS(1,2)  Kt*PROP_POSNS(1,3)  Kt*PROP_POSNS(1,4);
                     -Dt                    Dt                   -Dt                    Dt                 ]);
     
     % position and velocity proportional gain matricies
