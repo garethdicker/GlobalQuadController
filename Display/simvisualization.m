@@ -1,11 +1,11 @@
 function [ ] =simvisualization(t,X,sideview)
 
-global propLocation 
+global PROP_POSNS 
 
 X = X';
 t = t';
 Rbumper = 0.11;
-Cbumper = propLocation(:,1);
+Cbumper = PROP_POSNS(:,1);
 Abumper = deg2rad(11);
 
 disprate = 60; %Hz
@@ -18,10 +18,10 @@ figure('units','normalized','outerposition',[0 0 1 1])
 %% Create body-fixed centers of 4 bumpers + virtual bumper
 load('locations2');
 
-c1 = propLocation(:,1);
-c2 = propLocation(:,2);
-c3 = propLocation(:,3);
-c4 = propLocation(:,4);
+c1 = PROP_POSNS(:,1);
+c2 = PROP_POSNS(:,2);
+c3 = PROP_POSNS(:,3);
+c4 = PROP_POSNS(:,4);
 
 n1_b = rotmat('Z',deg2rad(45))'*rotmat('Y',Abumper + deg2rad(90))'* [1;0;0];
 n2_b = rotmat('Z',deg2rad(135))'*rotmat('Y',Abumper + deg2rad(90))'* [1;0;0];
@@ -37,7 +37,7 @@ clear p1 p2 p3 p4;
 [sx,sy,sz] = sphere;
 sx = sx(9:13,:);
 sy = sy(9:13,:);
-sz = sz(9:13,:)+propLocation(3,1);
+sz = sz(9:13,:)+PROP_POSNS(3,1);
 sr = Rbumper;
 sxR = zeros(size(sx));
 syR = zeros(size(sy));

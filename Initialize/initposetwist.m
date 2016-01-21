@@ -1,4 +1,4 @@
-function [Pose, Twist] = defineposetwist
+function [Pose, Twist] = initposetwist
     % Initialize structs Pose and Twist 
 
     % Position in world frame
@@ -12,6 +12,9 @@ function [Pose, Twist] = defineposetwist
     
     % Linear velocity in body frame
     Twist.linVel = zeros(3,1);
+    
+    % Linear acceleration in world frame
+    Twist.worldAcc = zeros(3,1);
     
     % Linear velocity in the world frame
     Twist.posnDeriv = zeros(3,1);
