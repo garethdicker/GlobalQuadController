@@ -3,7 +3,7 @@ function [] = plotaccelerations(t, ctrl, bodyAccelerations, quatHist)
     hold on
 %     % desired accleration
     controlCells = struct2cell(ctrl);
-    desiredAccelerations = real([controlCells{3,:}]);
+    desiredAccelerations = [controlCells{3,:}];
     plot(t,desiredAccelerations(1,:),'--r');
     plot(t,desiredAccelerations(2,:),'--g');
     plot(t,desiredAccelerations(3,:)-9.81,'--b');

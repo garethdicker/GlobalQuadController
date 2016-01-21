@@ -17,12 +17,18 @@ clc;
 % Initialize global parameters.
 initparams;
 
+%% Monte Carlo for loop
+
+iterations = 10;
+
+for i = 1:iterations
 % Define starting pose and twist parameters.
 IC.posn     = [0; 0; 2]; % world frame position (meters) 
 IC.linVel   = [0; 0; 0]; % world frame velocity (m / s)
 IC.angVel   = [0; 0; 0]; % body rates (radians / s)
-IC.attEuler = [pi/2-0.1; 0; 0]; % [roll; pitch; yaw] (radians)
+IC.attEuler = [pi/4; 0; 0]; % [roll; pitch; yaw] (radians)
 
+%%
 % Initialize state and its derivative.
 [state, stateDeriv] = initstate(IC);
 
@@ -40,7 +46,7 @@ Hist = inithist(state, stateDeriv, Pose, Twist, Control);
 
 %% Simulation
 for i = 0 : dt : endTime - dt
-    
+    i
     % Set control input for recovery controller.
     % TODO: make world frame not body
     Control.acc = [0; 1; 9.81];
@@ -66,33 +72,31 @@ for i = 0 : dt : endTime - dt
     % Update history.
     Hist = updatehist(Hist, t, state, stateDeriv, Pose, Twist, Control);
 
-
-
 end
 %% Display Plots
-plotbodyrates(Hist.times, Hist.controls, Hist.twists);
+% plotbodyrates(Hist.times, Hist.controls, Hist.twists);
 
 %% TODO: change
-plotaccelerations(Hist.times, Hist.controls, Hist.stateDerivs(1:3,:), Hist.states(10:13,:));
-
-%% 
-plotposition(Hist.times, Hist.poses);
-
-%% 
-plotangles(Hist.times, Hist.poses);
-
-%%
-% stateDeriv
-plotvelocity(Hist.times, Hist.twists);
-
-%%
-plotcontrolforcetorque(Hist.times, Hist.controls);
-
-%%
-plotcontrolrpm(Hist.times, Hist.controls);
-
-%%
-ploterrorquaternion(Hist.times, Hist.controls);
+% plotaccelerations(Hist.times, Hist.controls, Hist.stateDerivs(1:3,:), Hist.states(10:13,:));
+% 
+% %% 
+% plotposition(Hist.times, Hist.poses);
+% 
+% %% 
+% plotangles(Hist.times, Hist.poses);
+% 
+% %%
+% % stateDeriv
+% plotvelocity(Hist.times, Hist.twists);
+% 
+% %%
+% plotcontrolforcetorque(Hist.times, Hist.controls);
+% 
+% %%
+% plotcontrolrpm(Hist.times, Hist.controls);
+% 
+% %%
+% ploterrorquaternion(Hist.times, Hist.controls);
 
 %% Visualize simulation.
 % simvisualization(Hist.times, Hist.states, 'na');

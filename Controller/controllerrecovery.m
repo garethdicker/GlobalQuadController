@@ -71,8 +71,8 @@ else
     % rotate into body frame
     nBody = quatrotate(quatinv(Pose.attQuat)',n);
     % compute desired quaternion
-    Control.errQuat = [cos(theta/2)         ; nBody(1)*sin(theta/2); ...
-                       nBody(2)*sin(theta/2); nBody(3)*sin(theta/2)];
+    Control.errQuat = real([cos(theta/2)         ; nBody(1)*sin(theta/2); ...
+                       nBody(2)*sin(theta/2); nBody(3)*sin(theta/2)]);
 end
 
 %% 3. Compute desired body rates 
@@ -113,7 +113,7 @@ for i = 1:4
         rpmSquared(i) = 0;
     end
 end
-Control.rpm = sqrt(rpmSquared);
+Control.rpm = real(sqrt(rpmSquared));
 
 % saturate commands
 rpmSaturation = 8000;
