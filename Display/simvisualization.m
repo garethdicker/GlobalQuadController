@@ -23,10 +23,10 @@ c2 = PROP_POSNS(:,2);
 c3 = PROP_POSNS(:,3);
 c4 = PROP_POSNS(:,4);
 
-n1_b = rotmat('Z',deg2rad(45))'*rotmat('Y',Abumper + deg2rad(90))'* [1;0;0];
-n2_b = rotmat('Z',deg2rad(135))'*rotmat('Y',Abumper + deg2rad(90))'* [1;0;0];
-n3_b = rotmat('Z',deg2rad(-135))'*rotmat('Y',Abumper + deg2rad(90))'* [1;0;0];
-n4_b = rotmat('Z',deg2rad(-45))'*rotmat('Y',Abumper + deg2rad(90))'* [1;0;0];
+n1_b = invar2rotmat('Z',deg2rad(45))'*invar2rotmat('Y',Abumper + deg2rad(90))'* [1;0;0];
+n2_b = invar2rotmat('Z',deg2rad(135))'*invar2rotmat('Y',Abumper + deg2rad(90))'* [1;0;0];
+n3_b = invar2rotmat('Z',deg2rad(-135))'*invar2rotmat('Y',Abumper + deg2rad(90))'* [1;0;0];
+n4_b = invar2rotmat('Z',deg2rad(-45))'*invar2rotmat('Y',Abumper + deg2rad(90))'* [1;0;0];
    
 cR = Cbumper;
 

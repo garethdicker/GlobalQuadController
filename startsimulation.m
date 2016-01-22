@@ -17,11 +17,6 @@ clc;
 % Initialize global parameters.
 initparams;
 
-%% Monte Carlo for loop
-
-iterations = 10;
-
-for i = 1:iterations
 % Define starting pose and twist parameters.
 IC.posn     = [0; 0; 2]; % world frame position (meters) 
 IC.linVel   = [0; 0; 0]; % world frame velocity (m / s)
