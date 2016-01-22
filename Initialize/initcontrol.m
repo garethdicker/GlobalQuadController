@@ -16,7 +16,6 @@ function [Control] = initcontrol()
 
     % Control propellor speeds outputs (1, 2, 3, 4)
     Control.rpm = [0; 0; 0; 0];
-    Control.rpmDeriv = [0; 0; 0; 0];
     
     % Type 1: controllerposn
     % Type 2: controlleratt

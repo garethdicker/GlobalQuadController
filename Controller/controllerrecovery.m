@@ -94,7 +94,7 @@ Control.twist.angVel(3) = 0;
     
 % define gains
 propPQ  = 20.0; % proportional for p and q
-propR   = 3.0;  % proportional only for r
+propR   = 2.0;  % proportional only for r
 
 % compute desired boy frame accelerations with P control on the body rates
 vP = propPQ*(Control.twist.angVel(1) - Twist.angVel(1));
@@ -124,11 +124,5 @@ Control.rpm (Control.rpm < 0) = 0;
 Control.rpm(1) = -Control.rpm(1);
 Control.rpm(3) = -Control.rpm(3);
 
-% TAKE THIS OUT LATER 
-% compute propellor speed rates of change in radians /second
-Control.rpmDeriv = (Control.rpm - Hist.controls(end).rpm)*2*pi/60/dt;
-
-% TODO: taken out to reduce yaw rate
-Control.rpmDeriv = [0;0;0;0];
 end
 
