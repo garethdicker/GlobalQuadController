@@ -75,9 +75,9 @@ PropState = initpropstate([-1000; 1000; -1000; 1000]);
         % TODO: make world frame not body
         Control.acc = [0; 1; 9.81];
 
-    %     [recoveryStage] = checkrecoverystage(Pose, Twist);
+        [recoveryStage] = checkrecoverystage(Pose, Twist);
 
-    %     [Control] = computedesiredacceleration(Control, Pose, Twist, recoveryStage);
+        [Control] = computedesiredacceleration(Control, Pose, Twist, recoveryStage);
 
         % Compute control outputs
         [Control] = controllerrecovery(dt, Pose, Twist, Control, Hist);
