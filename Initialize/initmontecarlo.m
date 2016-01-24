@@ -8,40 +8,20 @@ function [MonteCarlo] = initmontecarlo()
     Control = initcontrol;
     [Pose, Twist] = updatekinematics(state, stateDeriv);
     Hist = inithist(state, stateDeriv, Pose, Twist, Control);
-    
-    endTime = 0.5;  % seconds
-    dt = 1 / 200; % time step (Hz)
-
-    % Simulation
+    endTime = 0.5; 
+    dt = 1 / 200; 
     for i = 0 : dt : endTime - dt
-        
-        % Set control input for recovery controller.
-        % TODO: make world frame not body
         Control.acc = [0; 0; 9.81];
-
-    %     [recoveryStage] = checkrecoverystage(Pose, Twist);
-
-    %     [Control] = computedesiredacceleration(Control, Pose, Twist, recoveryStage);
-
-        % Compute control outputs
+        [recoveryStage] = checkrecoverystage(Pose, Twist);
         [Control] = controllerrecovery(dt, Pose, Twist, Control, Hist);
-
-        % Propagate dynamics.
         options = odeset('RelTol',1e-3);
         [tODE,stateODE] = ode45(@(tODE, stateODE) ...
-        dynamicsystem(tODE, stateODE, Control),[i i+dt], Hist.states(:,end), options);
-        [stateDeriv] = dynamicsystem(tODE(end), stateODE(end,:)', Control);
+        dynamicsystem(tODE, stateODE, dt, Control.rpm,[0; 0; 0; 0]),[i i+dt], Hist.states(:,end), options);
+        [stateDeriv, ~] = dynamicsystem(tODE(end), stateODE(end,:)', dt, Control.rpm, [0; 0; 0; 0]);
         state = stateODE(end,:)';
         t = tODE(end,:)- dt;
-
-        % Update kinematic variables from dynamics output.
         [Pose, Twist] = updatekinematics(state, stateDeriv);
-
-        % Update history.
         Hist = updatehist(Hist, t, state, stateDeriv, Pose, Twist, Control);
-
     end
-    
     MonteCarlo = Hist;
-
 end

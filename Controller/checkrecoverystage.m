@@ -1,10 +1,11 @@
-function [recoveryStage] = checkrecoverystage(Pose, Twist)
+function [recoveryStage] = checkrecoverystage( Pose, Twist)
     % Checks the stage of the recovery controller.
 
     % TODO: include acceleration check to begin
     
     % check Euler angles
-    if Pose.attEuler(1) < 0.35 && Pose.attEuler(2) < 0.35
+    if (Pose.attEuler(1) < 0.35 && Pose.attEuler(2) < 0.35 ...
+            && Twist.angVel(1) < 0.18  && Twist.angVel(2) < 0.18)
         recoveryStage = 2;
     else
         recoveryStage = 1;
