@@ -47,7 +47,7 @@ for i = 0 : dt : endTime - dt
     
     % Set control input for recovery controller.
     % TODO: make world frame not body
-    Control.acc = [0; 1; 9.81];
+    Control.acc = [0; 0; 9.81];
     
     [recoveryStage] = checkrecoverystage(Pose, Twist);
     
