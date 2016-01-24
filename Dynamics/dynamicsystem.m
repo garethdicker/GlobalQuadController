@@ -1,17 +1,21 @@
-function [stateDeriv] = dynamicsystem(t, state, Control)
+function [stateDeriv, PropState] = dynamicsystem(t, state, dt, rpmControl, rpmPrev)
 % Propagates quadrotor dyanimcs using ode45
 % Inputs: time, state and control signal 
 % Output: derivative of the state
 
 global g m I Jr PROP_POSNS Kt Dt;
 
-if isreal(Control.rpm) == 0
+if isreal(rpmControl) == 0
     error('Control rpm is imaginary');
 end
 
 if isreal(state) == 0
     error('State is imaginary');
 end
+
+rpmDeriv = (rpm2rad(rpmControl) - rpm2rad(rpmPrev))/dt; %in rad/s
+PropState.rpm = rpmControl;
+PropState.rpmDeriv = rpmDeriv;
 
 
 stateDeriv = zeros(13,1);
@@ -20,12 +24,12 @@ R = quat2rotmat(state(10:13));
 
 % define forces
 fGravity = R * [0; 0; -m*g];                 % force of gravity, body frame
-fThrust = [0; 0; -Kt*sum(Control.rpm.^2)];   % force of thrust, body frame
+fThrust = [0; 0; -Kt*sum(rpmControl.^2)];   % force of thrust, body frame
 
 % compute moments
-Mx = -Kt*PROP_POSNS(2,:)*(Control.rpm.^2) - state(5) * Jr * sum(rpm2rad(Control.rpm));
-My =  Kt*PROP_POSNS(1,:)*(Control.rpm.^2) + state(4) * Jr * sum(rpm2rad(Control.rpm));
-Mz =        Dt*[-1 1 -1 1]*(Control.rpm.^2) - Jr*[-1 1 -1 1]* rpm2rad(Control.rpmDeriv);
+Mx = -Kt*PROP_POSNS(2,:)*(rpmControl.^2) - state(5) * Jr * sum(rpm2rad(rpmControl));
+My =  Kt*PROP_POSNS(1,:)*(rpmControl.^2) + state(4) * Jr * sum(rpm2rad(rpmControl));
+Mz =        Dt*[-1 1 -1 1]*(rpmControl.^2) - Jr*[-1 1 -1 1]* rpm2rad(rpmDeriv);
 
 stateDeriv(1:3)   = (fGravity + fThrust  -  m*cross(state(4:6), state(1:3)))/m;
 stateDeriv(4:6)   = inv(I)*([Mx; My; Mz] -  cross(state(4:6), I * state(4:6)));
