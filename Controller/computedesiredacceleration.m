@@ -9,7 +9,7 @@ function [Control] = computedesiredacceleration(Control, Pose, Twist, recoverySt
     switch recoveryStage
         case 1
             % Initialize attitude control.
-            Control.acc = [0; 0; g];
+            Control.acc = [0; 0; g]; %redundant
         case 2
             % Set vertical velocity gain.
             dZ = 5; % TODO: play around with this number

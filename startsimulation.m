@@ -20,7 +20,7 @@ initparams;
 % Define starting pose and twist parameters.
 IC.posn     = [0; 0; 2]; % world frame position (meters) 
 IC.linVel   = [0; 0; 0]; % world frame velocity (m / s)
-IC.angVel   = [30; 30; 4]; % body rates (radians / s)
+IC.angVel   = [0; 0; 0]; % body rates (radians / s)
 IC.attEuler = [pi; 0; 0]; % [roll; pitch; yaw] (radians)
 
 %%
@@ -44,7 +44,7 @@ Hist = inithist(state, stateDeriv, Pose, Twist, Control);
 
 %% Simulation
 for i = 0 : dt : endTime - dt
-    
+    i
     % Set control input for recovery controller.
     % TODO: make world frame not body
     Control.acc = [0; 0; 9.81];
@@ -75,7 +75,7 @@ end
 % plotbodyrates(Hist.times, Hist.controls, Hist.twists);
 
 %% TODO: change
-% plotaccelerations(Hist.times, Hist.controls, Hist.stateDerivs(1:3,:), Hist.states(10:13,:));
+plotaccelerations(Hist.times, Hist.controls, Hist.stateDerivs(1:3,:), Hist.states(10:13,:));
 % 
 % %% 
 % plotposition(Hist.times, Hist.poses);
