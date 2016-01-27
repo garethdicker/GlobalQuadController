@@ -99,9 +99,7 @@ end
 %
 recoveryTime = recoveryTime(2:end);
 %%
-sortedTimes = sort(recoveryTime, 'descend');
-forHist = round(recoveryTime, 2, 'significant');
-histogram(forHist,'DisplayStyle','bar','Normalization','count','BinMethod','sturges');
+hist(recoveryTime, 30);
 xlim([0 endTime]);
 %% Display Plots
 % plotbodyrates(Hist.times, Hist.controls, Hist.twists);
