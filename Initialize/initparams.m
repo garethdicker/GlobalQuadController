@@ -2,7 +2,7 @@ function []= initparams()
 
     global g m I Ixx Iyy Izz
     
-    global Jr Dt Kt PROP_POSNS u2RpmMat pPos dPos
+    global Jr Dt Kt PROP_POSNS u2RpmMat pZ pXY dZ dXY
 
     g = 9.81;   % gravity
     m = 0.933;  % mass (kg) 
@@ -35,8 +35,10 @@ function []= initparams()
                     -Dt                    Dt                   -Dt                    Dt                 ]);
     
     % position and velocity proportional gain matricies
-    pPos = zeros(3,3);
-    dPos = zeros(3,3);
+    dZ = 0;
+    dXY = 0;
+    pZ = 0;
+    pXY = 0;
 
 end
 

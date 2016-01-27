@@ -1,4 +1,4 @@
-function [] = plotaccelerations(t, ctrl, bodyAccelerations, quatHist)
+function [] = plotaccelerations(t, ctrl, twists)
 
     hold on
 %     % desired accleration
@@ -10,19 +10,12 @@ function [] = plotaccelerations(t, ctrl, bodyAccelerations, quatHist)
 
     
     % actual acceleration (world frame conversion)
-    worldAccelerations = zeros(size(bodyAccelerations));
-    for i = 1:length(t)
-        rotate = quat2rotmat(quatHist(:,i));
-        worldAccelerations(:,i) = rotate'*bodyAccelerations(:,i);
-    end
+    temp = struct2cell(twists);
+    worldAccelerations = [temp{2,:}];
     
     plot(t,worldAccelerations(1,:),'r');
     plot(t,worldAccelerations(2,:),'g');
     plot(t,worldAccelerations(3,:),'b');
-    
-%     plot(t,bodyAccelerations(1,:),'r');
-%     plot(t,bodyAccelerations(2,:),'g');
-%     plot(t,bodyAccelerations(3,:),'b');
     
     legend('accXDes','accYDes','accZDes','accX','accY','accZ');
     xlabel('Time (s)');

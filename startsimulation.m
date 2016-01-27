@@ -20,14 +20,14 @@ initparams;
 % Define starting pose and twist parameters.
 IC.posn     = [0; 0; 2]; % world frame position (meters) 
 IC.linVel   = [0; 0; 0]; % world frame velocity (m / s)
-IC.angVel   = [0; 0; 0]; % body rates (radians / s)
+IC.angVel   = [27; 27; 0]; % body rates (radians / s)
 IC.attEuler = [pi; 0; 0]; % [roll; pitch; yaw] (radians)
 
 %%
 % Initialize state and its derivative.
 [state, stateDeriv] = initstate(IC);
 
-endTime = 1;  % seconds
+endTime = 4;  % seconds
 dt = 1 / 200; % time step (Hz)
 
 % Define control types using pose and twist struct types.
@@ -44,14 +44,10 @@ Hist = inithist(state, stateDeriv, Pose, Twist, Control);
 
 %% Simulation
 for i = 0 : dt : endTime - dt
-    i
-    % Set control input for recovery controller.
-    % TODO: make world frame not body
-    Control.acc = [0; 0; 9.81];
     
-    [recoveryStage] = checkrecoverystage(Pose, Twist);
+    [recoveryStage] = checkrecoverystage(Pose, Twist)
     
-%     [Control] = computedesiredacceleration(Control, Pose, Twist, recoveryStage);
+    [Control] = computedesiredacceleration(Control, Pose, Twist, recoveryStage);
     
     % Compute control outputs
     [Control] = controllerrecovery(dt, Pose, Twist, Control, Hist);
@@ -72,20 +68,20 @@ for i = 0 : dt : endTime - dt
     
 end
 %% Display Plots
-% plotbodyrates(Hist.times, Hist.controls, Hist.twists);
+plotbodyrates(Hist.times, Hist.controls, Hist.twists);
 
 %% TODO: change
-plotaccelerations(Hist.times, Hist.controls, Hist.stateDerivs(1:3,:), Hist.states(10:13,:));
+plotaccelerations(Hist.times, Hist.controls, Hist.twists);
 % 
-% %% 
-% plotposition(Hist.times, Hist.poses);
+%% 
+plotposition(Hist.times, Hist.poses);
 % 
-% %% 
+%% 
 % plotangles(Hist.times, Hist.poses);
 % 
 % %%
 % % stateDeriv
-% plotvelocity(Hist.times, Hist.twists);
+plotvelocity(Hist.times, Hist.twists);
 % 
 % %%
 % plotcontrolforcetorque(Hist.times, Hist.controls);

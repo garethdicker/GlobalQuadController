@@ -1,7 +1,7 @@
 function [] = plotvelocity(t, velocity)
 
     a = struct2cell(velocity);
-    b = [a{2,:}];
+    b = [a{3,:}];
     plot(t,b); 
     
     legend('xdot','ydot','zdot');

@@ -5,16 +5,16 @@ function [] = plotbodyrates(t, ctrl, twists)
     a = struct2cell(ctrl);
     b = [a{2,:}];
     c = [b.angVel];
-    plot(t,real(c(1,:)),'--r');
-    plot(t,real(c(2,:)),'--g');
-    plot(t,real(c(3,:)),'--b');
+    plot(t,c(1,:),'--r');
+    plot(t,c(2,:),'--g');
+    plot(t,c(3,:),'--b');
     
     %actual
-    a = struct2cell(twists);
-    b = [a{3,:}];
-    plot(t,real(b(1,:)),'r');
-    plot(t,real(b(2,:)),'g');
-    plot(t,real(b(3,:)),'b');
+    d = struct2cell(twists);
+    e = [d{4,:}];
+    plot(t,e(1,:),'r');
+    plot(t,e(2,:),'g');
+    plot(t,e(3,:),'b');
     
     legend('pDes','qDes','rDes','p','q','r');
     xlabel('Time (s)');
