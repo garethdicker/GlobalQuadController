@@ -18,10 +18,10 @@ clc;
 initparams;
 global g;
 
-endTime = 1.5;  % seconds
+endTime = 1;  % seconds
 dt = 1 / 200; % time step (Hz)
     
-iterations = 1000;
+iterations = 100;
 
 % count how many of the iterations stabilizes
 recoveryCount = 0;
@@ -34,13 +34,7 @@ for k = 1:iterations
     % Define starting pose and twist parameters.
     IC.posn     = [0; 0; 2]; % world frame position (meters) 
     IC.linVel   = [0; 0; 0]; % world frame velocity (m / s)
-    
-    % bounds on initial angular velocities taken from maximum expected
-    % angular rates during experiments
     IC.angVel   = [54*(rand-0.5); 54*(rand-0.5); 10*(rand-0.5)]; % body rates (radians / s)
-    
-    % bounds on initial roll and pitch allow from upside down starting
-    % configuration
     IC.attEuler = [2*pi*(rand-0.5); 2*pi*(rand-0.5); 0]; % [roll; pitch; yaw] (radians)
     
     % Initialize state and its derivative.
@@ -100,9 +94,9 @@ end
 recoveryTime = recoveryTime(2:end);
 %%
 sortedTimes = sort(recoveryTime, 'descend');
-forHist = round(recoveryTime, 2, 'significant');
+forHist = round(recoveryTime, 3, 'significant')
+xlim([0
 histogram(forHist,'DisplayStyle','bar','Normalization','count','BinMethod','sturges');
-xlim([0 endTime]);
 %% Display Plots
 % plotbodyrates(Hist.times, Hist.controls, Hist.twists);
 

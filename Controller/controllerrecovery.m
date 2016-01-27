@@ -29,6 +29,10 @@ function [Control] = controllerrecovery(dt, Pose, Twist, Control, Hist)
 
 global m Ixx Iyy Izz u2RpmMat Kt Dt;
 
+if sum(Control.acc) == 0
+    error('Desired acceleration must be non-zero');
+end
+
 %% 1. Compute thrust
 
 % compute body z-axis direction, -1 because quad z-axis points down
@@ -93,8 +97,14 @@ Control.twist.angVel(3) = 0;
 %% Perform PD control on actual and desired body rates
     
 % define gains
-propPQ  = 20.0; % proportional for p and q
-propR   = 2.0;  % proportional only for r
+
+% pq gain chosen to saturate at 8000 rpm for upside down starting
+% configuration with zero angular rates
+propPQ  = 13.0; % proportional for p and q
+
+% r gain chosen to create 4000 rpm difference at max expected angular rate
+% of 5 rad /s (yaw)
+propR   = 1.0;  % proportional only for r
 
 % compute desired boy frame accelerations with P control on the body rates
 vP = propPQ*(Control.twist.angVel(1) - Twist.angVel(1));
