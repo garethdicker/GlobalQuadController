@@ -27,7 +27,11 @@ function [Control] = controllerrecovery(dt, Pose, Twist, Control, Hist)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-global m Ixx Iyy Izz u2RpmMat Kt Dt;
+global m Ixx Iyy Izz u2RpmMat;
+
+if sum(Control.acc) == 0
+    error('Desired acceleration is non-zero');
+end
 
 %% 1. Compute thrust
 
