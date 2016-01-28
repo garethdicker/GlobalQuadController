@@ -18,10 +18,10 @@ clc;
 initparams;
 
 % Define starting pose and twist parameters.
-IC.posn     = [0; 0; 2]; % world frame position (meters) 
+IC.posn     = [1; 1; 1]; % world frame position (meters) 
 IC.linVel   = [0; 0; 0]; % world frame velocity (m / s)
-IC.angVel   = [27; 27; 0]; % body rates (radians / s)
-IC.attEuler = [pi; 0; 0]; % [roll; pitch; yaw] (radians)
+IC.angVel   = [0; 0; 0]; % body rates (radians / s)
+IC.attEuler = [pi/2; 0; 0]; % [roll; pitch; yaw] (radians)
 
 %%
 % Initialize state and its derivative.
