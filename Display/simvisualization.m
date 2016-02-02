@@ -153,7 +153,6 @@ for i = 1:disprate_idx:size(t,1)
    axis square;
    
    drawnow;
-   
    hold off;
 end
 

@@ -67,7 +67,7 @@ for k = 1:iterations
     for i = 0 : dt : endTime - dt
         
         [recoveryStage] = checkrecoverystage(Pose, Twist);
-        if recoveryStage == 4 && prevStage ~= 4
+        if recoveryStage == 4 && 
             tempRecoveryTime = i;
         end
         prevStage = recoveryStage
@@ -106,7 +106,7 @@ hist(recoveryTime,500);
 
 %% Create histogram of maximum positions
 figure
-hist(maxPosition(:,2),50);
+hist(maxPosition(:,2),50)
 
 
 %% Display Plots
@@ -135,6 +135,6 @@ plotposition(Hist.times, Hist.poses);
 % ploterrorquaternion(Hist.times, Hist.controls);
 
 %% Visualize simulation.
-simvisualization(Hist.times, Hist.states, 'YZ');
+simvisualization(Hist.times, Hist.states, 'na');
 
 

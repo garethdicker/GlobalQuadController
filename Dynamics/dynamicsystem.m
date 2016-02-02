@@ -29,7 +29,8 @@ fThrust = [0; 0; -Kt*sum(rpmControl.^2)];   % force of thrust, body frame
 % compute moments
 Mx = -Kt*PROP_POSNS(2,:)*(rpmControl.^2) - state(5) * Jr * sum(rpm2rad(rpmControl));
 My =  Kt*PROP_POSNS(1,:)*(rpmControl.^2) + state(4) * Jr * sum(rpm2rad(rpmControl));
-Mz =        Dt*[-1 1 -1 1]*(rpmControl.^2) - Jr*[-1 1 -1 1]* rpm2rad(rpmDeriv);
+% Mz =        Dt*[-1 1 -1 1]*(rpmControl.^2) - Jr*[-1 1 -1 1]* rpm2rad(rpmDeriv);
+Mz =        Dt*[-1 1 -1 1]*(rpmControl.^2) - Jr*sum(rpm2rad(rpmDeriv));
 
 stateDeriv(1:3)   = (fGravity + fThrust  -  m*cross(state(4:6), state(1:3)))/m;
 stateDeriv(4:6)   = inv(I)*([Mx; My; Mz] -  cross(state(4:6), I * state(4:6)));
