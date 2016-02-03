@@ -18,10 +18,10 @@ clc;
 initparams;
 global g;
 
-endTime = 1.5;  % seconds
+endTime = 2;  % seconds
 dt = 1 / 200; % time step (Hz)
     
-iterations = 1000;
+iterations = 10000;
 
 % count how many of the iterations stabilizes
 recoveryCount = 0;
