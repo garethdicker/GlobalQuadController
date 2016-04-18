@@ -135,6 +135,6 @@ plotposition(Hist.times, Hist.poses);
 % ploterrorquaternion(Hist.times, Hist.controls);
 
 %% Visualize simulation.
-simvisualization(Hist.times, Hist.states, 'YZ');
+simvisualization(Hist.times, Hist.states, 'na');
 
 
