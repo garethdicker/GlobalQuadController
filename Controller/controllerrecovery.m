@@ -54,12 +54,7 @@ end
 %% 2. Compute roll/pitch error
 
 % compute desired body frame z-axis
-if sum(Control.acc ~= 0)
-    bodyFrameZAxisDesired = Control.acc / norm(Control.acc);
-else
-    % free fall 
-    bodyFrameZAxisDesired = [0; 0; 0];
-end
+bodyFrameZAxisDesired = Control.acc / norm(Control.acc);
 
 % compute angle between actual and desired body frame z axis
 theta = acos(dot(bodyFrameZAxis, bodyFrameZAxisDesired));

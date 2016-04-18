@@ -17,6 +17,5 @@ function [state, stateDeriv] = initstate(IC)
     state(7:9) = IC.posn;     % x y z
     % Initialize attitude quaternion
     state(10:13) = angle2quat(-(IC.attEuler(1)+pi),IC.attEuler(2),IC.attEuler(3),'xyz')';
-
     
 end
