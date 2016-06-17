@@ -1,4 +1,4 @@
-function[] = plot_quaternion(ttotal,a1,b1,a2,b2)
+function[] = plot_quaternions(ttotal,a1,b1,a2,b2)
 
 disprate = 30; %Hz
 t = ttotal;
