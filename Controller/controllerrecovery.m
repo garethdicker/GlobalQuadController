@@ -1,4 +1,4 @@
-function [Control] = controllerrecovery(dt, Pose, Twist, Control, Hist)
+function [Control] = controllerrecovery(dt, Pose, Twist, Control, Hist, recoveryStage, i)
 % Performs collision recovery control.
 %
 % Inputs: 
@@ -78,7 +78,7 @@ end
 
 % compute first two desired body rates (p and q) by scaling error
 % quaternion terms q1 and q2
-ERROR_TO_DESIRED_BODYRATES = 20;    %this is p_{rp} of Faessler's control
+ERROR_TO_DESIRED_BODYRATES = 15;    %this is p_{rp} of Faessler's control
 Control.twist.angVel(1:2) = ERROR_TO_DESIRED_BODYRATES*Control.errQuat(2:3);
 
 % if the error is negative, make the desired body rates negative
@@ -93,6 +93,9 @@ Control.twist.angVel(3) = 0;
     
 % define gains
 propPQ  = 20.0; % proportional for p and q
+
+% there is no derivative gain here - why does this not affect control?
+
 propR   = 2.0;  % proportional only for r
 
 % compute desired boy frame accelerations with P control on the body rates
@@ -105,6 +108,22 @@ Control.u(2) = (vP - Twist.angVel(2)*Twist.angVel(3)*(Iyy-Izz)/Ixx)*Ixx;
 Control.u(3) = (vQ - Twist.angVel(1)*Twist.angVel(3)*(Izz-Ixx)/Iyy)*Iyy;
 Control.u(4) = (vR - Twist.angVel(1)*Twist.angVel(2)*(Ixx-Iyy)/Izz)*Izz;
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% In order to emulate live tests, the initial thrust command was set to
+% simply the manual control command. Moreover, a delay existed between the
+% time of release of the UAV and the detection of freefall which triggers
+% recovery. Thus thrust is set to constant during this period and the
+% moments set to zero until a certain amount of 'freefall detection' time
+% % has occured.
+% if (recoveryStage == 1)
+%     Control.u(1) = -10.75;
+% end
+% if i < 0.0
+%     Control.u(2:4) = 0;
+% end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % compute desired propeller speeds in RPM
 rpmSquared = u2RpmMat*Control.u;
 for i = 1:4
@@ -115,9 +134,9 @@ end
 Control.rpm = real(sqrt(rpmSquared));
 
 % saturate commands
-rpmSaturation = 8000;
+rpmSaturation = 7000;
 Control.rpm (Control.rpm > rpmSaturation) = rpmSaturation;
-Control.rpm (Control.rpm < 0) = 0;
+Control.rpm (Control.rpm < 1000) = 1000;
 
 % set negatives for CW and CCW rotations
 Control.rpm(1) = -Control.rpm(1);

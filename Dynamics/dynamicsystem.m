@@ -13,11 +13,22 @@ if isreal(state) == 0
     error('State is imaginary');
 end
 
-rpmDeriv = (rpm2rad(rpmControl) - rpm2rad(rpmPrev))/dt; %in rad/s
+rpmDeriv = (rpm2rad(rpmControl) - rpm2rad(rpmPrev))/dt;
+
+
+% seems like 40,000 rpm/sec is the saturation limit
+rpmMaxAccel = 30000;
+
+for i = 1:4
+    if (abs(rpmDeriv(i)) > rpmMaxAccel)
+        rpmDeriv(i) = sign(rpmDeriv(i))*rpmMaxAccel;
+        rpmControl(i) = rpmPrev(i) + rpmDeriv(i)*dt;
+    end
+end
+
 PropState.rpm = rpmControl;
 PropState.rpmDeriv = rpmDeriv;
-
-
+    
 stateDeriv = zeros(13,1);
 % define rotation matrix
 R = quat2rotmat(state(10:13));

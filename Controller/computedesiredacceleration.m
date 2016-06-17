@@ -14,12 +14,12 @@ function [Control] = computedesiredacceleration(Control, Pose, Twist, recoverySt
             dZ = 5; % TODO: play around with this number
         case 3
             % Add vertical position and horizontal velocity control.
-            pZ = 5;
-            dXY = 3;
+%             pZ = 5;
+%             dXY = 3;
         case 4
-            pZ = 5;
-            dXY = 3;
-            pXY = 3;
+%             pZ = 5;
+%             dXY = 3;
+%             pXY = 3;
         otherwise 
             error('Invalid value for recoveryStage');
     end
