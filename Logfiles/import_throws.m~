@@ -1,6 +1,10 @@
-%% Validation of Freefall Controller with Monte Carlo simulation
+%% Plot Quaternion
+clear all
+close all
+figure 
+hold on
 
-% 120 trials were performed for comparison to Monte Carlo simulation
+% 120 trials for comparison to Monte Carl
 
 % Set 1: Upper hemisphere, no yaw,        20 trials
 % Set 2: Upper hemisphere, with yaw,      20 trials
@@ -12,11 +16,9 @@
 % Set 7: Rollrate in full hemisphere,     10 trials
 % Set 8: Aggressive natural throws,       10 trials
 
-clear all
-close all
-hold on
 
 set = 7;
+
 
 if set > 4
     size = 10;
