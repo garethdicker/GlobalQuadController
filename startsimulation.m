@@ -18,34 +18,29 @@ clc;
 initparams;
 
 % Define starting pose and twist parameters.
-IC.posn     = [1; 1; 1]; % world frame position (meters) 
+IC.posn     = [0; 0; 2]; % world frame position (meters) 
 IC.linVel   = [0; 0; 0]; % world frame velocity (m / s)
 IC.angVel   = [0; 0; 0]; % body rates (radians / s)
-IC.attEuler = [pi/2; 0; 0]; % [roll; pitch; yaw] (radians)
+IC.attEuler = [pi; 0; 0]; % [roll; pitch; yaw] (radians)
 
 %%
 % Initialize state and its derivative.
 [state, stateDeriv] = initstate(IC);
 
-endTime = 4;  % seconds
+endTime = 2;  % seconds
 dt = 1 / 200; % time step (Hz)
 
-% Define control types using pose and twist struct types.
 Control = initcontrol;
-
-% Initialize propeller state
 PropState = initpropstate([-1000; 1000; -1000; 1000]);
-
-% Update pose and twist structs from state and its derivative.
 [Pose, Twist] = updatekinematics(state, stateDeriv);
-
-% Initialize history for plotting and visualizing simulation.
 Hist = inithist(state, stateDeriv, Pose, Twist, Control);
 
 %% Simulation
+recoveryStage = 1;
+
 for i = 0 : dt : endTime - dt
     
-    [recoveryStage] = checkrecoverystage(Pose, Twist)
+    [recoveryStage] = checkrecoverystage(Pose, Twist, recoveryStage)
     
     [Control] = computedesiredacceleration(Control, Pose, Twist, recoveryStage);
     

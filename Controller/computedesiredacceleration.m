@@ -8,18 +8,12 @@ function [Control] = computedesiredacceleration(Control, Pose, Twist, recoverySt
     switch recoveryStage
         case 1
             % Initialize attitude control.
-            Control.acc = [0; 0; g]; %redundant
         case 2
             % Set vertical velocity gain.
-            dZ = 5; % TODO: play around with this number
+            dZ = 5; 
         case 3
-            % Add vertical position and horizontal velocity control.
-            pZ = 5;
-            dXY = 3;
-        case 4
-            pZ = 5;
-            dXY = 3;
-            pXY = 3;
+            % no change if vertical velocity has converged
+            dZ = 5; 
         otherwise 
             error('Invalid value for recoveryStage');
     end
@@ -27,7 +21,6 @@ function [Control] = computedesiredacceleration(Control, Pose, Twist, recoverySt
     % Compute desired acceleration as combination of position and velocity
     % controls plus a gravity term
     
-    % TODO:  -pPos * (Control.pose.posn - Pose.posn) + ...
     Control.acc = [pXY    0    0; ...
                     0   pXY    0; ...
                     0     0   pZ] * ([1; 1; 1] - Pose.posn) ...

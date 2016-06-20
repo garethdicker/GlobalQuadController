@@ -3,18 +3,19 @@ clear all
 close all
 figure 
 hold on
-set = 8;
+set = 7;
 
 for i = 1:10
     if (set == 1 && i <= 9)
         trial = ['0', num2str(i)];
-    elseif (set >= 7)
-        trial = num2str(100 + i + (set-7)*10);
-    else
+    elseif (set == 7)
+        trial = ['10' num2str(i)];
+    elseif (set == 8)
+        trial = ['11' num2str(
         trial = num2str(i+(set-1)*20);
     end
     file = ['d' trial '.csv'];
-    if (strcmp(file,'d29.csv') == 0 && strcmp(file,'d117.csv') == 0)
+    if (strcmp(file,'d29.csv') == 0)
         M = csvread(file,1,0);
         time = (M(:,1) - M(1,1))*0.000001;
         for j = 1:size(M(:,2))
