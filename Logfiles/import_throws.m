@@ -13,17 +13,19 @@
 % Set 8: Aggressive natural throws,       10 trials
 
 clear all
-close all
+% close all
+figure
 hold on
 
-set = 7;
+set = 4;
 
 if set > 4
-    size = 10;
+    num_trials = 10;
 else
-    size = 20;
+    num_trials = 20;
+end
 
-for i = 1:size
+for i = 1:num_trials
     if (set == 1 && i <= 9)
         trial = ['0', num2str(i)];
     elseif (set >= 7)
@@ -50,21 +52,30 @@ for i = 1:size
             end
         end
 
-    %% Attitude Quaternion
-    %     plot(time, M(:,19), time, M(:,20), time,M(:,21), time,M(:,22));
-    %     axis([-1, 3, -1.5,1.5]);
-    %     
+%     %% Attitude Quaternion
+%         plot(time, M(:,19), time, M(:,20), time,M(:,21), time,M(:,22));
+%         axis([-1, 3, -1.5,1.5]);
+        
+%% Euler Angles
+    plot(time, M(:,23),'Color', [0.5 0.2 0.4]); % roll
+    plot(time, M(:,24),'Color', [0.1 0.7 0.6]) % pitch
+    plot(time, M(:,25),'Color', [0.6 1.0 0.4]); % yaw 
+    axis([0, 2, -4, 4])
+    legend('Roll','Pitch');%,'Yaw');
+%     line([0, 0],[-6*pi,6*pi],'LineStyle','--','Color','red','LineWidth',3)
+%     line([manual_time, manual_time],[-3*pi,3*pi],'LineStyle','--','Color','black','LineWidth',1)
+
     %% Body Rates
-    plot(time, M(:,26),'Color', [0.5 0.2 0.4])
-    plot(time, M(:,27),'Color', [0.1 0.7 0.6])
-    plot(time, M(:,28),'Color', [0.6 1.0 0.4]);
+%     plot(time, M(:,26),'Color', [0.5 0.2 0.4])
+%     plot(time, M(:,27),'Color', [0.1 0.7 0.6])
+%     plot(time, M(:,28),'Color', [0.6 1.0 0.4]);
+% 
+% %   plot(time, sqrt(M(:,26).^2+M(:,27).^2),'Color', [0.5 0.2 0.4]);
+%     axis([0, 2, -10, 15])
+%     legend('p','q','r');
+% %     line([0, 0],[-6*pi,6*pi],'LineStyle','--','Color','red','LineWidth',3)
 
-%   plot(time, sqrt(M(:,26).^2+M(:,27).^2),'Color', [0.5 0.2 0.4]);
-    axis([-1, 5, -6*pi, 6*pi])
-    legend('Roll Rate', 'Pitch Rate');%, 'Yaw Rate');
-    line([0, 0],[-6*pi,6*pi],'LineStyle','--','Color','red','LineWidth',3)
-
-    line([manual_time, manual_time],[-3*pi,3*pi],'LineStyle','--','Color','black','LineWidth',1)
+%     line([manual_time, manual_time],[-3*pi,3*pi],'LineStyle','--','Color','black','LineWidth',1)
 
     %% Accelerometer
 %         plot(time, sqrt(M(:,2).^2 + M(:,3).^2 + M(:,4).^2));
