@@ -138,7 +138,7 @@ end
 % % %%
 % % ploterrorquaternion(Hist.times, Hist.controls);
 % 
-% %% Visualize simulation.
+%% Visualize simulation.
 % simvisualization(Hist.times, Hist.states, 'na');
 % 
 

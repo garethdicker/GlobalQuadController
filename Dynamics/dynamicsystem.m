@@ -26,6 +26,7 @@ R = quat2rotmat(state(10:13));
 fGravity = R * [0; 0; -m*g];                 % force of gravity, body frame
 fThrust = [0; 0; -Kt*sum(rpmControl.^2)];   % force of thrust, body frame
 
+% rpmDeriv = [0 0 0 0];
 % compute moments
 Mx = -Kt*PROP_POSNS(2,:)*(rpmControl.^2) - state(5) * Jr * sum(rpm2rad(rpmControl));
 My =  Kt*PROP_POSNS(1,:)*(rpmControl.^2) + state(4) * Jr * sum(rpm2rad(rpmControl));

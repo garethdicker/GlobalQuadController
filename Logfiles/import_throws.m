@@ -17,7 +17,7 @@ clear all
 figure
 hold on
 
-set = 4;
+set = 1;
 
 if set > 4
     num_trials = 10;
@@ -53,15 +53,15 @@ for i = 1:num_trials
         end
 
 %     %% Attitude Quaternion
-%         plot(time, M(:,19), time, M(:,20), time,M(:,21), time,M(:,22));
-%         axis([-1, 3, -1.5,1.5]);
+        plot(time, M(:,19), time, M(:,20), time,M(:,21), time,M(:,22));
+        axis([-1, 3, -1.5,1.5]);
         
 %% Euler Angles
-    plot(time, M(:,23),'Color', [0.5 0.2 0.4]); % roll
-    plot(time, M(:,24),'Color', [0.1 0.7 0.6]) % pitch
-    plot(time, M(:,25),'Color', [0.6 1.0 0.4]); % yaw 
-    axis([0, 2, -4, 4])
-    legend('Roll','Pitch');%,'Yaw');
+%     plot(time, M(:,23),'Color', [0.5 0.2 0.4]); % roll
+%     plot(time, M(:,24),'Color', [0.1 0.7 0.6]) % pitch
+% %     plot(time, M(:,25),'Color', [0.6 1.0 0.4]); % yaw 
+%     axis([0, 2, -3, 1.5])
+%     legend('Roll','Pitch');%,'Yaw');
 %     line([0, 0],[-6*pi,6*pi],'LineStyle','--','Color','red','LineWidth',3)
 %     line([manual_time, manual_time],[-3*pi,3*pi],'LineStyle','--','Color','black','LineWidth',1)
 

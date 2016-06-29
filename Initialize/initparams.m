@@ -26,8 +26,8 @@ function []= initparams()
     %prop locations relative to CoM
     PROP_POSNS = [p1, p2, p3, p4] - repmat(CoM,1,4);
 
-    Kt = 7.015e-8; % Thrust coefficient
-    Dt = 9.61e-10; % Drag coefficient
+    Kt = 8.7e-8; % Thrust coefficient
+    Dt = 8.7e-9; % 9.61e-10 drag coefficient
     
     u2RpmMat = inv([-Kt                   -Kt                   -Kt                   -Kt;              
                     -Kt*PROP_POSNS(2,1) -Kt*PROP_POSNS(2,2) -Kt*PROP_POSNS(2,3) -Kt*PROP_POSNS(2,4);

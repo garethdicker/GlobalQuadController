@@ -83,7 +83,7 @@ end
 
 % compute first two desired body rates (p and q) by scaling error
 % quaternion terms q1 and q2
-ERROR_TO_DESIRED_BODYRATES = 20;    %this is p_{rp} of Faessler's control
+ERROR_TO_DESIRED_BODYRATES = 15;    %this is p_{rp} of Faessler's control
 Control.twist.angVel(1:2) = ERROR_TO_DESIRED_BODYRATES*Control.errQuat(2:3);
 
 % if the error is negative, make the desired body rates negative
