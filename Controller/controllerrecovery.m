@@ -92,7 +92,7 @@ Control.twist.angVel(3) = 0;
 %% Perform PD control on actual and desired body rates
     
 % define gains
-propPQ  = 20.0; % proportional for p and q
+propPQ  = 15.0; % proportional for p and q
 
 % there is no derivative gain here - why does this not affect control?
 
@@ -134,7 +134,7 @@ end
 Control.rpm = real(sqrt(rpmSquared));
 
 % saturate commands
-rpmSaturation = 7000;
+rpmSaturation = 8000;
 Control.rpm (Control.rpm > rpmSaturation) = rpmSaturation;
 Control.rpm (Control.rpm < 1000) = 1000;
 

@@ -17,14 +17,14 @@ rpmDeriv = (rpm2rad(rpmControl) - rpm2rad(rpmPrev))/dt;
 
 
 % seems like 40,000 rpm/sec is the saturation limit
-rpmMaxAccel = 30000;
-
-for i = 1:4
-    if (abs(rpmDeriv(i)) > rpmMaxAccel)
-        rpmDeriv(i) = sign(rpmDeriv(i))*rpmMaxAccel;
-        rpmControl(i) = rpmPrev(i) + rpmDeriv(i)*dt;
-    end
-end
+% rpmMaxAccel = 100000;
+% 
+% for i = 1:4
+%     if (abs(rpmDeriv(i)) > rpmMaxAccel)
+%         rpmDeriv(i) = sign(rpmDeriv(i))*rpmMaxAccel;
+%         rpmControl(i) = rpmPrev(i) + rpmDeriv(i)*dt;
+%     end
+% end
 
 PropState.rpm = rpmControl;
 PropState.rpmDeriv = rpmDeriv;

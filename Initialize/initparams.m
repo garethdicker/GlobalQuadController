@@ -27,7 +27,7 @@ function []= initparams()
     PROP_POSNS = [p1, p2, p3, p4] - repmat(CoM,1,4);
 
     Kt = 8.7e-8; % Thrust coefficient
-    Dt = 3.47e-9; % Drag coefficient
+    Dt = 8.7e-9; % Drag coefficient
     
     u2RpmMat = inv([-Kt                   -Kt                   -Kt                   -Kt;              
                     -Kt*PROP_POSNS(2,1) -Kt*PROP_POSNS(2,2) -Kt*PROP_POSNS(2,3) -Kt*PROP_POSNS(2,4);
