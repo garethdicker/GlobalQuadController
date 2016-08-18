@@ -62,11 +62,12 @@ for k = 1:iterations
     
     k
     prevStage = 1;
+    recoveryStage = 1;
 
     % Simulation
     for i = 0 : dt : endTime - dt
         
-        [recoveryStage] = checkrecoverystage(Pose, Twist);
+        [recoveryStage] = checkrecoverystage(Pose, Twist, recoveryStage);
         if recoveryStage == 4 && prevStage ~= 4
             tempRecoveryTime = i;
         end
@@ -97,7 +98,6 @@ for k = 1:iterations
             recoveryTime = [recoveryTime; tempRecoveryTime];
         end
         maxPosition = [maxPosition; Pose.posn'];
-        Hist
 end
 %
 recoveryTime = recoveryTime(2:end);
@@ -135,6 +135,6 @@ plotposition(Hist.times, Hist.poses);
 % ploterrorquaternion(Hist.times, Hist.controls);
 
 %% Visualize simulation.
-simvisualization(Hist.times, Hist.states, 'na');
+simvisualization(Hist.times, Hist.states, 'YZ');
 
 
