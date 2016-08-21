@@ -20,7 +20,7 @@ initparams;
 endTime = 2;  % seconds
 dt = 1 / 200; % time step (Hz)
     
-iterations = 1;
+iterations = 10000;
 
 % count how many of the iterations stabilizes
 recoveryCount = 0;
@@ -32,7 +32,7 @@ recoveryTime = 0;
 maxPosition = [0 0 0];
 
 for k = 1:iterations
-    
+    display(k);
     % Define starting pose and twist parameters.
     IC.posn     = [0; 0; 0]; % world frame position (meters) 
     IC.linVel   = [4*(rand-0.5); 4*(rand-0.5); 4*(rand-0.5)]; % world frame velocity (m / s)
@@ -71,7 +71,7 @@ for k = 1:iterations
         if recoveryStage == 4 && prevStage ~= 4
             tempRecoveryTime = i;
         end
-        prevStage = recoveryStage
+        prevStage = recoveryStage;
 
         [Control] = computedesiredacceleration(Control, Pose, Twist, recoveryStage);
 
@@ -102,11 +102,11 @@ end
 %
 recoveryTime = recoveryTime(2:end);
 %% Create histogram of recovery times
-hist(recoveryTime,500);
+hist(recoveryTime,100);
 
 %% Create histogram of maximum positions
 figure
-hist(maxPosition(:,2),50);
+hist(maxPosition(:,3),100);
 
 
 %% Display Plots
