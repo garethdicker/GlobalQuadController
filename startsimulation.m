@@ -102,11 +102,11 @@ end
 %
 recoveryTime = recoveryTime(2:end);
 %% Create histogram of recovery times
-hist(recoveryTime,100);
+hist(recoveryTime,20);
 
 %% Create histogram of maximum positions
 figure
-hist(maxPosition(:,3),100);
+hist(maxPosition(maxPosition(:,3)~=0,3),20);
 
 
 %% Display Plots
