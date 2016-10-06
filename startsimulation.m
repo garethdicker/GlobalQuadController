@@ -17,7 +17,7 @@ clc;
 % Initialize global parameters.
 initparams;
 
-endTime = 2;  % seconds
+endTime = 3;  % seconds
 dt = 1 / 200; % time step (Hz)
     
 iterations = 10000;
@@ -35,7 +35,7 @@ for k = 1:iterations
     display(k);
     % Define starting pose and twist parameters.
     IC.posn     = [0; 0; 0]; % world frame position (meters) 
-    IC.linVel   = [4*(rand-0.5); 4*(rand-0.5); 4*(rand-0.5)]; % world frame velocity (m / s)
+    IC.linVel   = [54*(rand-0.5); 54*(rand-0.5); 10*(rand-0.5)]; % world frame velocity (m / s)
     
     % bounds on initial angular velocities taken from maximum expected
     % angular rates during experiments
@@ -102,11 +102,12 @@ end
 %
 recoveryTime = recoveryTime(2:end);
 %% Create histogram of recovery times
-hist(recoveryTime,20);
+figure
+hist(recoveryTime,10);
 
 %% Create histogram of maximum positions
 figure
-hist(maxPosition(maxPosition(:,3)~=0,3),20);
+hist(maxPosition(maxPosition(:,3)~=0,3),10);
 
 
 %% Display Plots

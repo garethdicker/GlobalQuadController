@@ -3,8 +3,8 @@ function [recoveryStage] = checkrecoverystage(Pose, Twist, recoveryStage)
     
     % TODO: include acceleration check to begin
     
-    attitudeStable = Pose.attEuler(1) < 0.35 && Pose.attEuler(2) < 0.35 ...
-            && Twist.angVel(1) < 0.18  && Twist.angVel(2) < 0.18;
+    attitudeStable = Pose.attEuler(1) < 0.3 && Pose.attEuler(2) < 0.3 ...
+            && Twist.angVel(1) < 0.5  && Twist.angVel(2) < 0.5;
         
     zVelocityStable = Twist.linVel(3) < 0.2;
     
