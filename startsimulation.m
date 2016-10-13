@@ -1,7 +1,6 @@
 
 %                Simulation of Quadrotor Recovery Control 
 %                by Gareth Dicker and Fiona Chui
-%                Last updated January 2016
 %
 %   Description: Simulation of quadrotor collision recovery control for
 %   prediction and validation of experimental collisions of the Spiri 
@@ -17,10 +16,10 @@ clc;
 % Initialize global parameters.
 initparams;
 
-endTime = 3;  % seconds
+endTime = 2.5;  % seconds
 dt = 1 / 200; % time step (Hz)
     
-iterations = 10000;
+iterations = 1000;
 
 % count how many of the iterations stabilizes
 recoveryCount = 0;
@@ -35,7 +34,7 @@ for k = 1:iterations
     display(k);
     % Define starting pose and twist parameters.
     IC.posn     = [0; 0; 0]; % world frame position (meters) 
-    IC.linVel   = [54*(rand-0.5); 54*(rand-0.5); 10*(rand-0.5)]; % world frame velocity (m / s)
+    IC.linVel   = [4*(rand-0.5); 4*(rand-0.5); 4*(rand-0.5)]; % world frame velocity (m / s)
     
     % bounds on initial angular velocities taken from maximum expected
     % angular rates during experiments
