@@ -1,3 +1,6 @@
+% plots histograms of recovery time, height loss and horizontal drift
+% requires having run startsimulation.m
+
 close all
 subplot(3,1,1)
 hist(recoveryTime,20)

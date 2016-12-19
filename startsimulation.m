@@ -2,9 +2,6 @@
 %                Simulation of Quadrotor Recovery Control 
 %                by Gareth Dicker and Fiona Chui
 %
-%   Description: Simulation of quadrotor collision recovery control for
-%   prediction and validation of experimental collisions of the Spiri 
-%   quadrotor platform.
 
 
 clear all;
